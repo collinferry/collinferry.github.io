@@ -1,0 +1,43 @@
+# Setup
+domain collinferry.github.io
+title: Collin Ferry
+tagline: — Tech Blog
+url: https://collinferry.github.io
+# baseurl: /REPOSITORY-NAME/ (place folder name if the site is served in a subfolder)
+paginate: 1
+baseurl: ""
+permalink: pretty
+
+# Gems
+plugins:
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-seo-tag
+
+# Optimize Jekyll
+exclude:
+  - .editorconfig
+  - .git
+  - .jekyll-cache
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE.md
+  - README.md
+
+sass:
+  sass_dir: _sass
+  style: :compressed
+
+# Options
+
+# Replace this value and uncomment to enable Google Analytics tracking
+# ga_analytics: UA-000000-0
+
+# Specify the author for blog posts
+author:
+  name: Collin Ferry
+  url: https://twitter.com/collinferry
+  email: collin.ferry@gmail.com
+
+# Custom vars
+version: 3.0.0
