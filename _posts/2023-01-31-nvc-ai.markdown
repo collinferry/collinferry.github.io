@@ -1,29 +1,40 @@
 ---
 layout: post
 title:  "Welcome to Collin!"
-date:   2023-01-27 23:52:02 -0800
-categories: jekyll update
+date:   2023-01-31 23:52:02 -0800
+categories: ai api gpt prompt-engineering steamship
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+# nvc-ai
 
-Jekyll requires blog post files to be named according to the following format:
+I built an experimental Steamship package to improve your relationship dialogue. Say the same thing but in a kinder way!
 
-`YEAR-MONTH-DAY-title.MARKUP`
+Demo running [here](https://www.steamship.com/packages/nvc?tab=Demo).
 
-Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `MARKUP` is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+It accepts a phrase and then (hopefully) returns the same sentiment but expressed using Non-Violent Commuication.
 
-Jekyll also offers powerful support for code snippets:
+![image](https://github.com/collinferry/nvc-ai/blob/main/cat-hair-nvc.jpg?raw=true)
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
+The crux of the customizability is actually quite simple. I did not fine-tune GPT to understand something as complex and nuanced as communication in a romantic relationship. I just used prompt engineering to focus GPT's efforts:
+
+{% highlight python %}
+class PromptPackage(PackageService):
+  
+  PROMPT = "Nonviolent Communication is an approach to communication where we cite Observations, Feelings, Needs and Requests. How might one say {phrase} using Non Violent Communication? Just give me the quote."
+
+  @post("generate")
+  def generate(self, phrase: str) -> str:
+    """Generate text from prompt parameters."""
+    llm_config = {
+      # Controls length of generated output.
+      "max_words": 60,
+      # Controls randomness of output (range: 0.0-1.0).
+      "temperature": 0.8
+    }
+    prompt_args = {"phrase": phrase}
+
+    llm = self.client.use_plugin("gpt-3", config=llm_config)
+    return llm.generate(self.PROMPT, prompt_args)
+
 {% endhighlight %}
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
-
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+Try it out in the UI and then try it out on your romantic partner. I am not liable for any breakups. 
