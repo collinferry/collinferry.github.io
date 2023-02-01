@@ -1,2 +1,5 @@
-# ignore everything in this directory
+# ignore these files
 *.DS_Store
+
+# ignore everything in this directory
+sample_posts/
